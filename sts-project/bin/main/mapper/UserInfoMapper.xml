@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exam.sts.mapper.UserInfoMapper">
+  <select id="selectUserInfoByUiId" resultType="com.exam.sts.vo.UserInfoVO">
+  	select * from user_info
+  	where ui_id = #{uiId}
+  </select>
+
+  <insert id="insertUserInfo">
+  	insert into user_info(ui_name, ui_id, ui_pwd, ui_gender, ui_birth, 
+	ui_phone, ui_email, ui_credat, ui_address, ui_address_code,
+	ui_address_detail, ui_address_extra)
+	values(#{uiName}, #{uiId}, #{uiPwd}, #{uiGender}, #{uiBirth},
+	#{uiPhone}, #{uiEmail}, date_format(now(), '%Y%m%d'), #{uiAddress}, #{uiAddressCode},
+	#{uiAddressDetail}, #{uiAddressExtra})
+  </insert>
+  
+
+  <update id="updateUserInfo">
+  	update user_info
+  	set	ui_id = #{uiId},
+  	ui_phone = #{uiPhone},
+  	ui_email = #{uiEmail},
+  	ui_address = #{uiAddress},
+  	ui_pwd = #{uiPwd}
+  	where ui_num = #{uiNum}
+
+  </update>
+  
+  <select id="selectUserInfoForLogin">
+  	select * from user_info
+    where ui_id = #{uiId}
+    and ui_pwd = #{uiPwd} 
+  </select>
+  
+  <delete id="deleteUserInfo">
+  	delete from user_info where ui_num = #{uiNum}
+  </delete>
+</mapper>

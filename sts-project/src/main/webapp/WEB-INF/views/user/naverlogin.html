@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+
+<body>
+
+<a id="naverIdLogin_loginButton" href="javascript:void(0)">
+    <img src="../resources/bs5/img/naver_Login_btn.png" style="width: 350px;">
+</a>
+
+<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+
+
+<script>
+var naverLogin = new naver.LoginWithNaverId(
+    {
+        clientId: "m75y21fobwDdokpCUbFo",
+        callbackUrl: "http://localhost/join",
+        isPopup: false,
+        callbackHandle: true
+    }
+);	
+
+naverLogin.init();
+</script>
+
+</body>
+</html>

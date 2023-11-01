@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exam.sts.mapper.ReviewInfoMapper">
+   <select id="selectReviewInfos" resultType="com.exam.sts.vo.ReviewInfoVO">
+      select rbi.*, ui.ui_name from review_board_info rbi
+      inner join user_info ui on rbi.ui_num = ui.ui_num
+      <where>
+         <if test='rbiTitle != null and rbiTitle != ""'>
+            and rbi_title like concat('%', #{rbiTitle}, '%')
+         </if> 
+         <if test='uiName != null and uiNum != ""'>
+            and ui_name like concat('%', #{uiName}, '%')
+         </if>
+      </where>
+      order by rbi_num desc
+   </select>
+   
+   <select id="selectReviewInfo" resultType="com.exam.sts.vo.ReviewInfoVO">
+      select rbi.*, ui.ui_name from review_board_info rbi
+      inner join user_info ui on rbi.ui_num = ui.ui_num
+      where rbi.rbi_num = #{rbiNum}
+   </select>
+   
+   <update id="updateReviewInfoCnt">
+      update review_board_info
+      set rbi_cnt = rbi_cnt + 1
+      where rbi_num = #{rbiNum}
+   </update>
+   
+   <insert id="insertReviewInfo"  parameterType="com.exam.sts.vo.ReviewInfoVO">
+      	insert into review_board_info (rbi_title, rbi_content, rbi_credat, ui_num)
+		VALUES(#{rbiTitle}, #{rbiContent}, date_format(now(), '%Y%m%d'), #{uiNum})
+   </insert>
+   
+   <update id="updateReviewInfo">
+		UPDATE REVIEW_BOARD_INFO
+	  	SET RBI_TITLE = #{rbiTitle}, RBI_CONTENT = #{rbiContent}
+	  	WHERE RBI_NUM= #{rbiNum}
+	</update>
+   
+   <delete id="deleteReviewInfo">
+      DELETE FROM REVIEW_BOARD_INFO WHERE RBI_NUM = #{rbiNum}
+   </delete>
+</mapper>
